@@ -18,7 +18,8 @@ public class MainActivity extends AppCompatActivity {
        findViewById(R.id.web_btn).setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-               startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://hh.ru")));
+               Intent intent = new Intent("android.intent.action.VIEW", Uri.parse("http://hh.ru"));
+               startActivity(intent);
            }
        });
     }

@@ -11,11 +11,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity android:name=".BrowserActivity">
             <intent-filter>
+                <action android:name="web.app.intent.action.web"/>
                 <action android:name="android.intent.action.VIEW"/>
-                <data android:scheme="http://"/>
+                <data android:scheme="http"/>
                 <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
