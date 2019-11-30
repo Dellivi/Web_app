@@ -9,6 +9,10 @@ import android.webkit.WebViewClient;
 
 public class BrowserActivity extends AppCompatActivity {
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,8 +20,10 @@ public class BrowserActivity extends AppCompatActivity {
 
         Uri url = getIntent().getData();
         WebView webView = findViewById(R.id.web_view);
+        webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new Callback());
         webView.loadUrl(url.toString());
+
     }
 
     private class Callback extends WebViewClient{
@@ -26,5 +32,16 @@ public class BrowserActivity extends AppCompatActivity {
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             return false;
         }
+    }
+    
+    @Override
+    public void onBackPressed() {
+        WebView webView = findViewById(R.id.web_view);
+        if(webView.canGoBack()) {
+            webView.goBack();
+        } else {
+            super.onBackPressed();
+        }
+        super.onBackPressed();
     }
 }
