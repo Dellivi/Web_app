@@ -33,7 +33,7 @@ public class BrowserActivity extends AppCompatActivity {
             return false;
         }
     }
-    
+
     @Override
     public void onBackPressed() {
         WebView webView = findViewById(R.id.web_view);
