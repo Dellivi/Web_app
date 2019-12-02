@@ -42,6 +42,5 @@ public class BrowserActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
-        super.onBackPressed();
     }
 }
