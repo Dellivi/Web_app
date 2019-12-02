@@ -2,6 +2,7 @@ package com.example.webapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.WebView;
@@ -13,6 +14,7 @@ public class BrowserActivity extends AppCompatActivity {
 
 
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
