@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/action_find"
+        android:title="@android:string/search_go"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1"
+        app:actionViewClass="androidx.appcompat.widget.SearchView">
+    </item>
+
+    <item
+        android:id="@+id/refresh_btn"
+        android:title=""
+        android:icon="@drawable/baseline_refresh_white_18"
+        android:orderInCategory="2"
+        app:showAsAction="always">
+    </item>
+</menu>
