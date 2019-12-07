@@ -1,38 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".BrowserActivity">
 
-
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_scrollFlags="scroll|enterAlways"
-        android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/web_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_scrollFlags="scroll|enterAlways">
 
+        <com.google.android.material.textview.MaterialAutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:paddingStart="15dp"
+            android:paddingEnd="5dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="@drawable/round_et"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:fontFamily="sans-serif-thin"
+            android:cursorVisible="false"
+            android:includeFontPadding="true"
+            android:hint="@string/hint_search"
+            android:inputType="textWebEditText"
+            android:singleLine="true">
+        </com.google.android.material.textview.MaterialAutoCompleteTextView>
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/pb"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </androidx.core.widget.ContentLoadingProgressBar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <WebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintVertical_weight="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </WebView>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
