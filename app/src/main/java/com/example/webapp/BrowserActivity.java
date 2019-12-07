@@ -1,9 +1,6 @@
 package com.example.webapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
@@ -12,9 +9,11 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 public class BrowserActivity extends AppCompatActivity {
     private WebView webView;
+    private ProgressBar pb;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -23,13 +22,17 @@ public class BrowserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_browser);
 
         webView = findViewById(R.id.web_view);
+        pb = findViewById(R.id.pb);
         webView.setWebViewClient(new Callback());
 
         webView.setWebChromeClient(new WebChromeClient(){
 
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
-
+                pb.setProgress(newProgress);
+                if(newProgress==100){
+                    pb.setVisibility(View.GONE);
+                }else pb.setVisibility(View.VISIBLE);
             }
         });
 
