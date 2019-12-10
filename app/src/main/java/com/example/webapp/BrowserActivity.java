@@ -44,7 +44,9 @@ public class BrowserActivity extends AppCompatActivity {
         Uri url = getIntent().getData();
         webView.getSettings().setJavaScriptEnabled(true);
 
-        webView.loadUrl(url.toString());
+        if (url != null) {
+            webView.loadUrl(url.toString());
+        }
 
     }
 
