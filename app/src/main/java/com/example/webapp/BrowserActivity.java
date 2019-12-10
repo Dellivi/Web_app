@@ -21,9 +21,12 @@ public class BrowserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
 
+
+
         webView = findViewById(R.id.web_view);
         pb = findViewById(R.id.pb);
-        webView.setWebViewClient(new Callback());
+
+        webView.setWebViewClient(new WebClient());
 
         webView.setWebChromeClient(new WebChromeClient(){
 
@@ -43,14 +46,6 @@ public class BrowserActivity extends AppCompatActivity {
 
         webView.loadUrl(url.toString());
 
-    }
-
-    private class Callback extends WebViewClient{
-
-        @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url) {
-            return false;
-        }
     }
 
     @Override
