@@ -5,15 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
-public class BrowserActivity extends AppCompatActivity {
+import com.google.android.material.textview.MaterialAutoCompleteTextView;
+
+public class BrowserActivity extends AppCompatActivity implements TextView.OnEditorActionListener {
     private WebView webView;
     private ProgressBar pb;
+    private MaterialAutoCompleteTextView mACTV;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -21,12 +26,14 @@ public class BrowserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
 
+        pb = findViewById(R.id.pb);
+        mACTV = findViewById(R.id.mACV);
+
 
 
         webView = findViewById(R.id.web_view);
-        pb = findViewById(R.id.pb);
-
         webView.setWebViewClient(new WebClient());
+        webView.getSettings().setJavaScriptEnabled(true);
 
         webView.setWebChromeClient(new WebChromeClient(){
 
@@ -39,15 +46,11 @@ public class BrowserActivity extends AppCompatActivity {
             }
         });
 
+        Uri urlU = getIntent().getData();
 
-
-        Uri url = getIntent().getData();
-        webView.getSettings().setJavaScriptEnabled(true);
-
-        if (url != null) {
-            webView.loadUrl(url.toString());
+        if (urlU != null) {
+            webView.loadUrl(urlU.toString());
         }
-
     }
 
     @Override
@@ -57,5 +60,15 @@ public class BrowserActivity extends AppCompatActivity {
         } else {
             super.onBackPressed();
         }
+    }
+
+    //TODO: Change mACTV.
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if(actionId == EditorInfo.IME_ACTION_SEARCH){
+            webView.loadUrl(mACTV.toString());
+            return true;
+        }
+        return false;
     }
 }
