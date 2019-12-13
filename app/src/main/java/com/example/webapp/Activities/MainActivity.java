@@ -1,4 +1,4 @@
-package com.example.webapp;
+package com.example.webapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.webapp.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.webapp;
+package com.example.webapp.WebClient;
 
 import android.webkit.WebView;
 import android.webkit.WebViewClient;

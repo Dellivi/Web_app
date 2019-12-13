@@ -1,24 +1,24 @@
-package com.example.webapp;
+package com.example.webapp.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.google.android.material.textview.MaterialAutoCompleteTextView;
+import com.example.webapp.R;
+import com.example.webapp.WebClient.WebClient;
 
-public class BrowserActivity extends AppCompatActivity implements TextView.OnEditorActionListener {
+public class BrowserActivity extends AppCompatActivity  {
+
     private WebView webView;
+    private SearchView mSearchView;
     private ProgressBar pb;
-    private MaterialAutoCompleteTextView mACTV;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -27,29 +27,30 @@ public class BrowserActivity extends AppCompatActivity implements TextView.OnEdi
         setContentView(R.layout.activity_browser);
 
         pb = findViewById(R.id.pb);
-        mACTV = findViewById(R.id.mACV);
-
-
+        mSearchView = findViewById(R.id.search_v);
+        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         webView = findViewById(R.id.web_view);
         webView.setWebViewClient(new WebClient());
         webView.getSettings().setJavaScriptEnabled(true);
-
-        webView.setWebChromeClient(new WebChromeClient(){
-
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                pb.setProgress(newProgress);
-                if(newProgress==100){
-                    pb.setVisibility(View.GONE);
-                }else pb.setVisibility(View.VISIBLE);
-            }
-        });
+        webView.setWebChromeClient(new WebAppChromeClient());
 
         Uri urlU = getIntent().getData();
 
         if (urlU != null) {
             webView.loadUrl(urlU.toString());
+        }
+    }
+
+
+    class WebAppChromeClient extends WebChromeClient {
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+
+            pb.setProgress(newProgress);
+            if(newProgress==100){
+                pb.setVisibility(View.GONE);
+            }else pb.setVisibility(View.VISIBLE);
         }
     }
 
@@ -62,13 +63,4 @@ public class BrowserActivity extends AppCompatActivity implements TextView.OnEdi
         }
     }
 
-    //TODO: Change mACTV.
-    @Override
-    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if(actionId == EditorInfo.IME_ACTION_SEARCH){
-            webView.loadUrl(mACTV.toString());
-            return true;
-        }
-        return false;
-    }
 }
