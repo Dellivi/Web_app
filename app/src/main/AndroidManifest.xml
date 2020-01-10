@@ -13,28 +13,24 @@
         android:theme="@style/AppTheme"
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
+        tools:targetApi="m"
+        android:exported="false">
 
         <activity
-            android:name=".Activities.BrowserActivity"
+            android:name=".activities.BrowserActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
 
             <intent-filter>
                 <action android:name="web.app.intent.action.web"/>
                 <action android:name="android.intent.action.VIEW"/>
                 <data android:scheme="http"/>
+                <category android:name="android.intent.category.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

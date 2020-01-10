@@ -1,10 +1,4 @@
-package com.example.webapp.Activities;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+package com.example.webapp.activities;
 
 import android.annotation.SuppressLint;
 import android.net.Uri;
@@ -15,11 +9,18 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.example.webapp.R;
 import com.example.webapp.WebClient.WebClient;
 
 public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLayout.OnChildScrollUpCallback{
 
+    private BrowserActivity view;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private WebView webView;
     private SearchView mSearchView;
@@ -31,6 +32,10 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
+        view.init();
+    }
+
+    public void init(){
 
         mSwipeRefreshLayout = findViewById(R.id.swipeToRefresh_layout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -40,7 +45,6 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-
 
         pb = findViewById(R.id.pb);
         mSearchView = findViewById(R.id.search_v);
@@ -55,12 +59,9 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
         webView.setWebChromeClient(new WebAppChromeClient());
 
         Uri urlU = getIntent().getData();
-
         if (urlU != null) {
             webView.loadUrl(urlU.toString());
         }
-
-
     }
 
     @Override
