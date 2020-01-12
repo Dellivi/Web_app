@@ -1,13 +1,13 @@
 package com.example.webapp.activities;
 
 import android.annotation.SuppressLint;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,7 +34,11 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
         init();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     public void init(){
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setActionBar(toolbar);
 
         mSwipeRefreshLayout = findViewById(R.id.swipeToRefresh_layout);
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -57,16 +61,15 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebAppChromeClient());
 
-        Uri urlU = getIntent().getData();
-        if (urlU != null) {
-            webView.loadUrl(urlU.toString());
-        }
+        webView.loadUrl("http:www.google.com");
+
     }
 
     @Override
     public boolean canChildScrollUp(@NonNull SwipeRefreshLayout parent, @Nullable View child) {
         return false;
     }
+
 
     class WebAppChromeClient extends WebChromeClient {
         @Override
