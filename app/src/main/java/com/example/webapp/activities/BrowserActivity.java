@@ -20,7 +20,6 @@ import com.example.webapp.WebClient.WebClient;
 
 public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLayout.OnChildScrollUpCallback{
 
-    private BrowserActivity view;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private WebView webView;
     private SearchView mSearchView;
@@ -32,7 +31,7 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
-        view.init();
+        init();
     }
 
     public void init(){
@@ -69,7 +68,6 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
         return false;
     }
 
-
     class WebAppChromeClient extends WebChromeClient {
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
@@ -80,8 +78,6 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
             }else pb.setVisibility(View.VISIBLE);
         }
     }
-
-
 
     @Override
     public void onBackPressed() {
