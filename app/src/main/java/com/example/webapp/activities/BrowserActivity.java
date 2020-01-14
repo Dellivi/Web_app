@@ -13,6 +13,7 @@ import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.webapp.R;
 import com.example.webapp.WebClient.WebClient;
+import com.example.webapp.WebConnect.BrowserConnect;
 
 public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLayout.OnChildScrollUpCallback{
 
@@ -29,6 +31,7 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
     private WebView webView;
     private EditText mEditText;
     private ProgressBar pb;
+    private BrowserConnect browserConnect = new BrowserConnect();
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -38,6 +41,9 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
         setContentView(R.layout.activity_browser);
         init();
         onPressSearchB();
+        if(!browserConnect.isOnline(this)){
+            Toast.makeText(this, "No internet connection", Toast.LENGTH_LONG).show();
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -97,18 +103,17 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
         }
     }
 
-    public void  onPressSearchB(){
-
-
+    public void onPressSearchB(){
         mEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-
-
-
             @Override
             public boolean onEditorAction(TextView v, int actionId,
                                           KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
                         || (actionId == EditorInfo.IME_ACTION_SEARCH)) {
+
+                    if(!browserConnect.isOnline(BrowserActivity.this)){
+                        Toast.makeText(BrowserActivity.this, "No internet connection", Toast.LENGTH_LONG).show();
+                    }
 
                     String url = mEditText.getText().toString();
 
@@ -121,12 +126,9 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
                     if (inputMethodManager != null) {
                         inputMethodManager.hideSoftInputFromWindow(webView.getWindowToken(),0);
                     }
-
                 }
                 return false;
             }
         });
-
     }
-
 }
