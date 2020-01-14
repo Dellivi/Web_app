@@ -1,18 +1,23 @@
 package com.example.webapp.activities;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.webapp.R;
@@ -22,7 +27,7 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
 
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private WebView webView;
-    private SearchView mSearchView;
+    private EditText mEditText;
     private ProgressBar pb;
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -32,10 +37,13 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_browser);
         init();
+        onPressSearchB();
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     public void init(){
+
+        mEditText = findViewById(R.id.search_v);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setActionBar(toolbar);
@@ -50,8 +58,6 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
         });
 
         pb = findViewById(R.id.pb);
-        mSearchView = findViewById(R.id.search_v);
-
 
         webView = findViewById(R.id.web_view);
         webView.setWebViewClient(new WebClient());
@@ -61,7 +67,7 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebChromeClient(new WebAppChromeClient());
 
-        webView.loadUrl("http:www.google.com");
+        webView.loadUrl("http://www.google.com");
 
     }
 
@@ -89,6 +95,38 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
         } else {
             super.onBackPressed();
         }
+    }
+
+    public void  onPressSearchB(){
+
+
+        mEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+
+
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId,
+                                          KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER))
+                        || (actionId == EditorInfo.IME_ACTION_SEARCH)) {
+
+                    String url = mEditText.getText().toString();
+
+                    if(!url.startsWith("http://www.")){
+                        url = "http://www." + url;
+                    }
+                    webView.loadUrl(url);
+
+                    InputMethodManager inputMethodManager =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (inputMethodManager != null) {
+                        inputMethodManager.hideSoftInputFromWindow(webView.getWindowToken(),0);
+                    }
+
+                }
+                return false;
+            }
+        });
+
     }
 
 }
