@@ -13,6 +13,7 @@
         android:id="@+id/appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
         android:background="@color/white">
 
         <Toolbar
@@ -21,20 +22,23 @@
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|enterAlways">
 
-            <androidx.appcompat.widget.SearchView
+            <EditText
                 android:id="@+id/search_v"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_marginEnd="18dp"
+                android:layout_marginEnd="16dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 android:background="@drawable/round_et"
                 android:textColor="@color/black"
                 android:textColorHint="@color/grey"
-                android:cursorVisible="true"
+                android:cursorVisible="false"
                 android:hint="@string/hint_search"
                 android:inputType="textWebEditText"
                 android:imeOptions="actionSearch"
-                android:singleLine="true">
-            </androidx.appcompat.widget.SearchView>
+                android:singleLine="true"
+                android:importantForAutofill="no">
+            </EditText>
         </Toolbar>
 
         <ProgressBar
