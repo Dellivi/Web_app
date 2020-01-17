@@ -104,7 +104,7 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
     }
 
     public void onPressSearchB(){
-        mEditText.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+        mEditText.setOnEditorActionListener(new EditText.OnEditorActionListener(){
             @Override
             public boolean onEditorAction(TextView v, int actionId,
                                           KeyEvent event) {
@@ -117,10 +117,16 @@ public class BrowserActivity extends AppCompatActivity implements SwipeRefreshLa
 
                     String url = mEditText.getText().toString();
 
-                    if(!url.startsWith("http://www.")){
+
+                    if(!url.startsWith("http://www.")& browserConnect.isEndWith(url)){
                         url = "http://www." + url;
+                    } else if(!browserConnect.isEndWith(url)){
+                        url = "https://www.google.com/search?q=" + url;
                     }
+
                     webView.loadUrl(url);
+
+
 
                     InputMethodManager inputMethodManager =(InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                     if (inputMethodManager != null) {
